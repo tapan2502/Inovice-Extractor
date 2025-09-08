@@ -1,0 +1,4 @@
+*{box-sizing:border-box} body{font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, 'Apple Color Emoji', 'Segoe UI Emoji'; background:#0b0c10; color:#e5e7eb}
+h2{font-size:18px;margin:0 0 8px} h3{margin:12px 0 6px} input,button{padding:8px;border-radius:8px;border:1px solid #374151;background:#111827;color:#e5e7eb}
+button{cursor:pointer}
+table{border-collapse:collapse} th,td{padding:8px;border-bottom:1px solid #1f2937}

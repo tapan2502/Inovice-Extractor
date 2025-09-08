@@ -1,0 +1,23 @@
+{
+  "name": "pdf-review-monorepo",
+  "private": true,
+  "version": "1.0.0",
+  "workspaces": [
+    "apps/web",
+    "apps/api",
+    "packages/types"
+  ],
+  "scripts": {
+    "build": "npm run -w apps/web build && npm run -w apps/api build",
+    "dev:web": "npm run -w apps/web dev",
+    "dev:api": "npm run -w apps/api dev",
+    "dev": "concurrently -c auto -n web,api \"npm:dev:web\" \"npm:dev:api\"",
+    "lint": "eslint . --ext .ts,.tsx"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.1",
+    "eslint": "^9.9.0",
+    "eslint-config-next": "^15.0.0-canary.13",
+    "typescript": "^5.6.2"
+  }
+}
