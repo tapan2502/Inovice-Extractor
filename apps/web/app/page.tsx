@@ -58,18 +58,27 @@ export default function Page() {
   }, []);
 
   /* ---------- Render current PDF page ---------- */
-  useEffect(() => {
-    if (!doc || !canvasRef.current) return;
-    (async () => {
-      const page = await doc.getPage(pageNum);
-      const viewport = page.getViewport({ scale: zoom });
-      const canvas = canvasRef.current;
-      const ctx = canvas.getContext("2d")!;
-      canvas.height = viewport.height;
-      canvas.width = viewport.width;
-      await page.render({ canvasContext: ctx as any, viewport }).promise;
-    })();
-  }, [doc, pageNum, zoom]);
+useEffect(() => {
+  if (!doc) return;
+
+  const canvas = canvasRef.current;
+  if (!canvas) return; // 👈 guard for SSR/first render
+
+  (async () => {
+    const page = await doc.getPage(pageNum);
+    const viewport = page.getViewport({ scale: zoom });
+
+    // size the canvas
+    canvas.height = viewport.height;
+    canvas.width = viewport.width;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return; // extra safety
+
+    await page.render({ canvasContext: ctx as any, viewport }).promise;
+  })();
+}, [doc, pageNum, zoom]);
+
 
   /* ---------- Handlers ---------- */
   const onChooseFile = async (f: File | null) => {
